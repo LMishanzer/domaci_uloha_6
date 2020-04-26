@@ -18,7 +18,7 @@
 #include <memory>
 #include <functional>
 #include <stdexcept>
-#include "CTable1.cpp"
+#include "CTable.cpp"
 using namespace std;
 #endif /* __PROGTEST__ */
 
@@ -134,6 +134,7 @@ int main ()
     oss . str ("");
     oss . clear ();
     oss << t0;
+    cout << t0;
     assert ( oss . str () ==
              "+----------------------------------------------+------------------------------------------+\n"
              "|Hello,                                        |          ###                             |\n"

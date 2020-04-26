@@ -49,7 +49,7 @@ public:
         m_Lines = m_Columns = 0;
     }
 
-    ~CEmpty() = default;
+    ~CEmpty() override = default;
 
     string GetLine(int index, int lines, int width) const override
     {
@@ -70,7 +70,7 @@ public:
     }
 
     CText(const CText &text)
-    {
+     : CElement(text) {
         m_Lines = text.m_Lines;
         m_Columns = text.m_Columns;
         m_Align = text.m_Align;
@@ -97,7 +97,7 @@ public:
         return *this;
     }
 
-    ~CText() = default;
+    ~CText() override = default;
 
     void SetText(const string &text)
     {
@@ -182,7 +182,7 @@ public:
         return *this;
     }
 
-    ~CImage() = default;
+    ~CImage() override = default;
 
     string GetLine(int index, int lines, int width) const override
     {
@@ -269,7 +269,7 @@ public:
         return *this;
     }
 
-    ~CTable()
+    ~CTable() override
     {
         for (int i = 0; i < m_Rows; i++)
         {
@@ -302,6 +302,10 @@ public:
         {
             m_Table[row][col] = new CEmpty(dynamic_cast<CEmpty &>(const_cast<CElement &>(item)));
         }
+        else if (typeid(item) == typeid(CTable))
+        {
+            m_Table[row][col] = new CTable(dynamic_cast<CTable &>(const_cast<CElement &>(item)));
+        }
     }
 
     void SetCell(const int row, const int col, const CEmpty &item)
@@ -322,20 +326,58 @@ public:
         m_Table[row][col] = new CImage(item);
     }
 
+    void SetCell(const int row, const int col, const CTable &item)
+    {
+        CElement *temp = m_Table[row][col];
+        m_Table[row][col] = new CTable(item);
+        delete temp;
+    }
+
     CElement &GetCell(const int row, const int col) const
     {
         return *m_Table[row][col];
     }
 
-    friend ostream &operator<< (ostream &os, const CTable &table)
+    void Update()
     {
-        os << table.Render();
+        string temp_string = Render();
+        string temp;
+        m_Content.clear();
+
+        for (auto i : temp_string)
+        {
+            if (i == '\n')
+            {
+                m_Content.push_back(temp);
+                temp.erase();
+            } else{
+                temp += i;
+            }
+        }
+        m_Lines = m_Content.size();
+        if (m_Lines)
+            m_Columns = m_Content[0].length();
+    }
+
+    string GetLine(int index, int line, int width) const override
+    {
+        if (index >= 0 && index < m_Lines)
+            return m_Content[index];
+        return "";
+    }
+
+    friend ostream &operator<< (ostream &os, CTable &table)
+    {
+        table.Update();
+        for (auto &i : table.m_Content)
+            os << i << endl;
         return os;
     }
 
 private:
     CElement *** m_Table;
     int m_Rows, m_Cols;
+    vector<string> m_Content;
 
     void FindWidths(int * widths) const
     {
@@ -344,6 +386,8 @@ private:
             widths[i] = 0;
             for (int j = 0; j < m_Rows; j++)
             {
+                if (typeid(*m_Table[j][i]) == typeid(CTable))
+                    ((CTable*) m_Table[j][i])->Update();
                 if (widths[i] < m_Table[j][i]->m_Columns)
                 {
                     widths[i] = m_Table[j][i]->m_Columns;
