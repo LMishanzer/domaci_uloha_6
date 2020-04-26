@@ -227,18 +227,7 @@ public:
     CTable(const CTable &table)
             : CElement(table)
     {
-        m_Rows = table.m_Rows;
-        m_Cols = table.m_Cols;
-        m_Table = new CElement**[m_Rows];
-
-        for (int i = 0; i < m_Rows; i++)
-        {
-            m_Table[i] = new CElement*[m_Cols];
-            for (int j = 0; j < m_Cols; j++)
-            {
-                SetCellWithoutDelete(i, j, *table.m_Table[i][j]);
-            }
-        }
+        CopyTable(table);
     }
 
     CTable &operator=(const CTable &table)
@@ -246,38 +235,15 @@ public:
         if (this == &table)
             return *this;
 
-        for (int i = 0; i < m_Rows; i++)
-        {
-            for (int j = 0 ; j < m_Cols; j++)
-                delete m_Table[i][j];
-            delete [] m_Table[i];
-        }
-        delete [] m_Table;
+        ClearTable();
+        CopyTable(table);
 
-        m_Rows = table.m_Rows;
-        m_Cols = table.m_Cols;
-        m_Table = new CElement**[m_Rows];
-
-        for (int i = 0; i < m_Rows; i++)
-        {
-            m_Table[i] = new CElement*[m_Cols];
-            for (int j = 0; j < m_Cols; j++)
-            {
-                SetCellWithoutDelete(i, j, *table.m_Table[i][j]);
-            }
-        }
         return *this;
     }
 
     ~CTable() override
     {
-        for (int i = 0; i < m_Rows; i++)
-        {
-            for (int j = 0; j < m_Cols; j++)
-                delete m_Table[i][j];
-            delete[] m_Table[i];
-        }
-        delete [] m_Table;
+        ClearTable();
     }
 
     void SetCell(const int row, const int col, const CElement &item)
@@ -340,20 +306,7 @@ public:
 
     void Update()
     {
-        string temp_string = Render();
-        string temp;
-        m_Content.clear();
-
-        for (auto i : temp_string)
-        {
-            if (i == '\n')
-            {
-                m_Content.push_back(temp);
-                temp.erase();
-            } else{
-                temp += i;
-            }
-        }
+        m_Content = Render();
         m_Lines = m_Content.size();
         if (m_Lines)
             m_Columns = m_Content[0].length();
@@ -369,8 +322,10 @@ public:
     friend ostream &operator<< (ostream &os, CTable &table)
     {
         table.Update();
-        for (auto &i : table.m_Content)
-            os << i << endl;
+        for (auto &i : table.m_Content) {
+            if (!i.empty())
+                os << i << endl;
+        }
         return os;
     }
 
@@ -392,6 +347,10 @@ private:
                 {
                     widths[i] = m_Table[j][i]->m_Columns;
                 }
+//                if (heights[j] < m_Table[j][i]->m_Lines)
+//                {
+//                    heights[j] = m_Table[j][i]->m_Lines;
+//                }
             }
         }
     }
@@ -423,45 +382,74 @@ private:
                 oss << '-';
             }
         }
-        oss << '+' << endl;
+        oss << '+';
         return oss.str();
     }
 
-    string DrawContent(const int * widths, const int height, const int index) const
+    string DrawContent(const int * widths, const int i, const int height, const int index) const
     {
         ostringstream oss;
-        for (int i = 0; i < height; i++)
+        for (int j = 0; j < m_Cols; j++)
         {
-            for (int j = 0; j < m_Cols; j++)
-            {
-                oss << '|' << setw(widths[j])
-                    << (typeid(*m_Table[index][j]) == typeid(CText) ?
-                        dynamic_cast<CText *>(m_Table[index][j])->m_Align == CText::ALIGN_LEFT ? left : right : left)
-                    << m_Table[index][j]->GetLine(i, height, widths[j]);
-            }
-            oss << '|' << endl;
+            oss << '|' << setw(widths[j])
+                << (typeid(*m_Table[index][j]) == typeid(CText) ?
+                    dynamic_cast<CText *>(m_Table[index][j])->m_Align == CText::ALIGN_LEFT ? left : right : left)
+                << m_Table[index][j]->GetLine(i, height, widths[j]);
         }
+        oss << '|';
         return oss.str();
     }
 
-    string Render() const
+    vector<string> Render() const
     {
-        ostringstream oss, line;
+        string line;
+        vector<string> res;
         int *widths = new int[m_Cols];
         int *heights = new int[m_Rows];
 
         FindWidths(widths);
         FindHeights(heights);
 
-        line << DrawLine(widths);
+        line = DrawLine(widths);
         for (int i = 0; i < m_Rows; i++) {
-            oss << line.str();
-            oss << DrawContent(widths, heights[i], i);
+            res.push_back(line);
+
+            for (int j = 0; j < heights[i]; j++) {
+                res.push_back(DrawContent(widths, j, heights[i], i));
+            }
+
         }
-        oss << line.str();
+        res.push_back(line);
 
         delete [] widths;
         delete [] heights;
-        return oss.str();
+        return res;
+    }
+
+    void ClearTable()
+    {
+        for (int i = 0; i < m_Rows; i++)
+        {
+            for (int j = 0; j < m_Cols; j++)
+                delete m_Table[i][j];
+            delete[] m_Table[i];
+        }
+        delete [] m_Table;
+    }
+
+    void CopyTable(const CTable &table)
+    {
+        m_Rows = table.m_Rows;
+        m_Cols = table.m_Cols;
+        m_Table = new CElement**[m_Rows];
+
+        for (int i = 0; i < m_Rows; i++)
+        {
+            m_Table[i] = new CElement*[m_Cols];
+            for (int j = 0; j < m_Cols; j++)
+            {
+                SetCellWithoutDelete(i, j, *table.m_Table[i][j]);
+            }
+        }
     }
 };
