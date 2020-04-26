@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/domaci_uloha_6.dir/main.cpp.o CMakeFiles/domaci_uloha_6.dir/CTable.cpp.o  -o domaci_uloha_6 
+/usr/bin/c++  -g   CMakeFiles/domaci_uloha_6.dir/main.cpp.o CMakeFiles/domaci_uloha_6.dir/CTable.cpp.o CMakeFiles/domaci_uloha_6.dir/CTable1.cpp.o  -o domaci_uloha_6 

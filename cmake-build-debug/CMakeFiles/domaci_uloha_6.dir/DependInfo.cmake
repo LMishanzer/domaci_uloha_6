@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/mike/PA2/domaci_uloha_6/CTable.cpp" "/home/mike/PA2/domaci_uloha_6/cmake-build-debug/CMakeFiles/domaci_uloha_6.dir/CTable.cpp.o"
+  "/home/mike/PA2/domaci_uloha_6/CTable1.cpp" "/home/mike/PA2/domaci_uloha_6/cmake-build-debug/CMakeFiles/domaci_uloha_6.dir/CTable1.cpp.o"
   "/home/mike/PA2/domaci_uloha_6/main.cpp" "/home/mike/PA2/domaci_uloha_6/cmake-build-debug/CMakeFiles/domaci_uloha_6.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

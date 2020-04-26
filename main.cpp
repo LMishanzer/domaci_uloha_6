@@ -18,50 +18,23 @@
 #include <memory>
 #include <functional>
 #include <stdexcept>
-#include "CTable.cpp"
+#include "CTable1.cpp"
 using namespace std;
 #endif /* __PROGTEST__ */
 
 #ifndef __PROGTEST__
 int main ()
 {
-    CEmpty empty;
-    cout << empty << endl;
-
-    CText text( "Hello,\n"
-                "Hello Kitty", CText::ALIGN_LEFT );
-    cout << text << endl;
-
-    CImage image;
-
-    image   . AddRow ( "###                   " )
-            . AddRow ( "#  #                  " )
-            . AddRow ( "#  # # ##   ###    ###" )
-            . AddRow ( "###  ##    #   #  #  #" )
-            . AddRow ( "#    #     #   #  #  #" )
-            . AddRow ( "#    #     #   #  #  #" )
-            . AddRow ( "#    #      ###    ###" )
-            . AddRow ( "                     #" )
-            . AddRow ( "                   ## " )
-            . AddRow ( "                      " )
-            . AddRow ( " #    ###   ###   #   " )
-            . AddRow ( "###  #   # #     ###  " )
-            . AddRow ( " #   #####  ###   #   " )
-            . AddRow ( " #   #         #  #   " )
-            . AddRow ( "  ##  ###   ###    ## " );
-
-    cout << image << endl;
-
-
-//    ostringstream oss;
-//    CTable t0 ( 3, 2 );
-//    t0 . SetCell ( 0, 0, CText ( "Hello,\n"
-//                                 "Hello Kitty", CText::ALIGN_LEFT ) );
-//    t0 . SetCell ( 1, 0, CText ( "Lorem ipsum dolor sit amet", CText::ALIGN_LEFT ) );
-//    t0 . SetCell ( 2, 0, CText ( "Bye,\n"
-//                                 "Hello Kitty", CText::ALIGN_RIGHT ) );
-//    t0 . SetCell ( 1, 1, CImage ()
-//            . AddRow ( "###                   " )
+//    CEmpty empty;
+//    cout << empty << endl;
+//
+//    CText text( "Hello,\n"
+//                "Hello Kitty", CText::ALIGN_LEFT );
+//    cout << text << endl;
+//
+//    CImage image;
+//
+//    image   . AddRow ( "###                   " )
 //            . AddRow ( "#  #                  " )
 //            . AddRow ( "#  # # ##   ###    ###" )
 //            . AddRow ( "###  ##    #   #  #  #" )
@@ -75,303 +48,331 @@ int main ()
 //            . AddRow ( "###  #   # #     ###  " )
 //            . AddRow ( " #   #####  ###   #   " )
 //            . AddRow ( " #   #         #  #   " )
-//            . AddRow ( "  ##  ###   ###    ## " ) );
-//    t0 . SetCell ( 2, 1, CEmpty () );
-//    oss . str ("");
-//    oss . clear ();
-//    oss << t0;
-//    assert ( oss . str () ==
-//             "+--------------------------+----------------------+\n"
-//             "|Hello,                    |                      |\n"
-//             "|Hello Kitty               |                      |\n"
-//             "+--------------------------+----------------------+\n"
-//             "|Lorem ipsum dolor sit amet|###                   |\n"
-//             "|                          |#  #                  |\n"
-//             "|                          |#  # # ##   ###    ###|\n"
-//             "|                          |###  ##    #   #  #  #|\n"
-//             "|                          |#    #     #   #  #  #|\n"
-//             "|                          |#    #     #   #  #  #|\n"
-//             "|                          |#    #      ###    ###|\n"
-//             "|                          |                     #|\n"
-//             "|                          |                   ## |\n"
-//             "|                          |                      |\n"
-//             "|                          | #    ###   ###   #   |\n"
-//             "|                          |###  #   # #     ###  |\n"
-//             "|                          | #   #####  ###   #   |\n"
-//             "|                          | #   #         #  #   |\n"
-//             "|                          |  ##  ###   ###    ## |\n"
-//             "+--------------------------+----------------------+\n"
-//             "|                      Bye,|                      |\n"
-//             "|               Hello Kitty|                      |\n"
-//             "+--------------------------+----------------------+\n" );
-//    t0 . SetCell ( 0, 1, t0 . GetCell ( 1, 1 ) );
-//    t0 . SetCell ( 2, 1, CImage ()
-//            . AddRow ( "*****   *      *  *      ******* ******  *" )
-//            . AddRow ( "*    *  *      *  *      *            *  *" )
-//            . AddRow ( "*    *  *      *  *      *           *   *" )
-//            . AddRow ( "*    *  *      *  *      *****      *    *" )
-//            . AddRow ( "****    *      *  *      *         *     *" )
-//            . AddRow ( "*  *    *      *  *      *        *       " )
-//            . AddRow ( "*   *   *      *  *      *       *       *" )
-//            . AddRow ( "*    *    *****   ****** ******* ******  *" ) );
-//    dynamic_cast<CText &> ( t0 . GetCell ( 1, 0 ) ) . SetText ( "Lorem ipsum dolor sit amet,\n"
-//                                                                "consectetur adipiscing\n"
-//                                                                "elit. Curabitur scelerisque\n"
-//                                                                "lorem vitae lectus cursus,\n"
-//                                                                "vitae porta ante placerat. Class aptent taciti\n"
-//                                                                "sociosqu ad litora\n"
-//                                                                "torquent per\n"
-//                                                                "conubia nostra,\n"
-//                                                                "per inceptos himenaeos.\n"
-//                                                                "\n"
-//                                                                "Donec tincidunt augue\n"
-//                                                                "sit amet metus\n"
-//                                                                "pretium volutpat.\n"
-//                                                                "Donec faucibus,\n"
-//                                                                "ante sit amet\n"
-//                                                                "luctus posuere,\n"
-//                                                                "mauris tellus" );
-//    oss . str ("");
-//    oss . clear ();
-//    oss << t0;
-//    assert ( oss . str () ==
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Hello,                                        |          ###                             |\n"
-//             "|Hello Kitty                                   |          #  #                            |\n"
-//             "|                                              |          #  # # ##   ###    ###          |\n"
-//             "|                                              |          ###  ##    #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #      ###    ###          |\n"
-//             "|                                              |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|                                              |                                          |\n"
-//             "|                                              |           #    ###   ###   #             |\n"
-//             "|                                              |          ###  #   # #     ###            |\n"
-//             "|                                              |           #   #####  ###   #             |\n"
-//             "|                                              |           #   #         #  #             |\n"
-//             "|                                              |            ##  ###   ###    ##           |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
-//             "|consectetur adipiscing                        |          ###                             |\n"
-//             "|elit. Curabitur scelerisque                   |          #  #                            |\n"
-//             "|lorem vitae lectus cursus,                    |          #  # # ##   ###    ###          |\n"
-//             "|vitae porta ante placerat. Class aptent taciti|          ###  ##    #   #  #  #          |\n"
-//             "|sociosqu ad litora                            |          #    #     #   #  #  #          |\n"
-//             "|torquent per                                  |          #    #     #   #  #  #          |\n"
-//             "|conubia nostra,                               |          #    #      ###    ###          |\n"
-//             "|per inceptos himenaeos.                       |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|Donec tincidunt augue                         |                                          |\n"
-//             "|sit amet metus                                |           #    ###   ###   #             |\n"
-//             "|pretium volutpat.                             |          ###  #   # #     ###            |\n"
-//             "|Donec faucibus,                               |           #   #####  ###   #             |\n"
-//             "|ante sit amet                                 |           #   #         #  #             |\n"
-//             "|luctus posuere,                               |            ##  ###   ###    ##           |\n"
-//             "|mauris tellus                                 |                                          |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
-//             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
-//             "|                                              |*    *  *      *  *      *           *   *|\n"
-//             "|                                              |*    *  *      *  *      *****      *    *|\n"
-//             "|                                              |****    *      *  *      *         *     *|\n"
-//             "|                                              |*  *    *      *  *      *        *       |\n"
-//             "|                                              |*   *   *      *  *      *       *       *|\n"
-//             "|                                              |*    *    *****   ****** ******* ******  *|\n"
-//             "+----------------------------------------------+------------------------------------------+\n" );
-//    CTable t1 ( t0 );
-//    t1 . SetCell ( 1, 0, CEmpty () );
-//    t1 . SetCell ( 1, 1, CEmpty () );
-//    oss . str ("");
-//    oss . clear ();
-//    oss << t0;
-//    assert ( oss . str () ==
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Hello,                                        |          ###                             |\n"
-//             "|Hello Kitty                                   |          #  #                            |\n"
-//             "|                                              |          #  # # ##   ###    ###          |\n"
-//             "|                                              |          ###  ##    #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #      ###    ###          |\n"
-//             "|                                              |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|                                              |                                          |\n"
-//             "|                                              |           #    ###   ###   #             |\n"
-//             "|                                              |          ###  #   # #     ###            |\n"
-//             "|                                              |           #   #####  ###   #             |\n"
-//             "|                                              |           #   #         #  #             |\n"
-//             "|                                              |            ##  ###   ###    ##           |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
-//             "|consectetur adipiscing                        |          ###                             |\n"
-//             "|elit. Curabitur scelerisque                   |          #  #                            |\n"
-//             "|lorem vitae lectus cursus,                    |          #  # # ##   ###    ###          |\n"
-//             "|vitae porta ante placerat. Class aptent taciti|          ###  ##    #   #  #  #          |\n"
-//             "|sociosqu ad litora                            |          #    #     #   #  #  #          |\n"
-//             "|torquent per                                  |          #    #     #   #  #  #          |\n"
-//             "|conubia nostra,                               |          #    #      ###    ###          |\n"
-//             "|per inceptos himenaeos.                       |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|Donec tincidunt augue                         |                                          |\n"
-//             "|sit amet metus                                |           #    ###   ###   #             |\n"
-//             "|pretium volutpat.                             |          ###  #   # #     ###            |\n"
-//             "|Donec faucibus,                               |           #   #####  ###   #             |\n"
-//             "|ante sit amet                                 |           #   #         #  #             |\n"
-//             "|luctus posuere,                               |            ##  ###   ###    ##           |\n"
-//             "|mauris tellus                                 |                                          |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
-//             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
-//             "|                                              |*    *  *      *  *      *           *   *|\n"
-//             "|                                              |*    *  *      *  *      *****      *    *|\n"
-//             "|                                              |****    *      *  *      *         *     *|\n"
-//             "|                                              |*  *    *      *  *      *        *       |\n"
-//             "|                                              |*   *   *      *  *      *       *       *|\n"
-//             "|                                              |*    *    *****   ****** ******* ******  *|\n"
-//             "+----------------------------------------------+------------------------------------------+\n" );
-//    oss . str ("");
-//    oss . clear ();
-//    oss << t1;
-//    assert ( oss . str () ==
-//             "+-----------+------------------------------------------+\n"
-//             "|Hello,     |          ###                             |\n"
-//             "|Hello Kitty|          #  #                            |\n"
-//             "|           |          #  # # ##   ###    ###          |\n"
-//             "|           |          ###  ##    #   #  #  #          |\n"
-//             "|           |          #    #     #   #  #  #          |\n"
-//             "|           |          #    #     #   #  #  #          |\n"
-//             "|           |          #    #      ###    ###          |\n"
-//             "|           |                               #          |\n"
-//             "|           |                             ##           |\n"
-//             "|           |                                          |\n"
-//             "|           |           #    ###   ###   #             |\n"
-//             "|           |          ###  #   # #     ###            |\n"
-//             "|           |           #   #####  ###   #             |\n"
-//             "|           |           #   #         #  #             |\n"
-//             "|           |            ##  ###   ###    ##           |\n"
-//             "+-----------+------------------------------------------+\n"
-//             "+-----------+------------------------------------------+\n"
-//             "|       Bye,|*****   *      *  *      ******* ******  *|\n"
-//             "|Hello Kitty|*    *  *      *  *      *            *  *|\n"
-//             "|           |*    *  *      *  *      *           *   *|\n"
-//             "|           |*    *  *      *  *      *****      *    *|\n"
-//             "|           |****    *      *  *      *         *     *|\n"
-//             "|           |*  *    *      *  *      *        *       |\n"
-//             "|           |*   *   *      *  *      *       *       *|\n"
-//             "|           |*    *    *****   ****** ******* ******  *|\n"
-//             "+-----------+------------------------------------------+\n" );
-//    t1 = t0;
-//    t1 . SetCell ( 0, 0, CEmpty () );
-//    t1 . SetCell ( 1, 1, CImage ()
-//            . AddRow ( "  ********                    " )
-//            . AddRow ( " **********                   " )
-//            . AddRow ( "**        **                  " )
-//            . AddRow ( "**             **        **   " )
-//            . AddRow ( "**             **        **   " )
-//            . AddRow ( "***         ********  ********" )
-//            . AddRow ( "****        ********  ********" )
-//            . AddRow ( "****           **        **   " )
-//            . AddRow ( "****           **        **   " )
-//            . AddRow ( "****      **                  " )
-//            . AddRow ( " **********                   " )
-//            . AddRow ( "  ********                    " ) );
-//    oss . str ("");
-//    oss . clear ();
-//    oss << t0;
-//    assert ( oss . str () ==
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Hello,                                        |          ###                             |\n"
-//             "|Hello Kitty                                   |          #  #                            |\n"
-//             "|                                              |          #  # # ##   ###    ###          |\n"
-//             "|                                              |          ###  ##    #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #      ###    ###          |\n"
-//             "|                                              |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|                                              |                                          |\n"
-//             "|                                              |           #    ###   ###   #             |\n"
-//             "|                                              |          ###  #   # #     ###            |\n"
-//             "|                                              |           #   #####  ###   #             |\n"
-//             "|                                              |           #   #         #  #             |\n"
-//             "|                                              |            ##  ###   ###    ##           |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
-//             "|consectetur adipiscing                        |          ###                             |\n"
-//             "|elit. Curabitur scelerisque                   |          #  #                            |\n"
-//             "|lorem vitae lectus cursus,                    |          #  # # ##   ###    ###          |\n"
-//             "|vitae porta ante placerat. Class aptent taciti|          ###  ##    #   #  #  #          |\n"
-//             "|sociosqu ad litora                            |          #    #     #   #  #  #          |\n"
-//             "|torquent per                                  |          #    #     #   #  #  #          |\n"
-//             "|conubia nostra,                               |          #    #      ###    ###          |\n"
-//             "|per inceptos himenaeos.                       |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|Donec tincidunt augue                         |                                          |\n"
-//             "|sit amet metus                                |           #    ###   ###   #             |\n"
-//             "|pretium volutpat.                             |          ###  #   # #     ###            |\n"
-//             "|Donec faucibus,                               |           #   #####  ###   #             |\n"
-//             "|ante sit amet                                 |           #   #         #  #             |\n"
-//             "|luctus posuere,                               |            ##  ###   ###    ##           |\n"
-//             "|mauris tellus                                 |                                          |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
-//             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
-//             "|                                              |*    *  *      *  *      *           *   *|\n"
-//             "|                                              |*    *  *      *  *      *****      *    *|\n"
-//             "|                                              |****    *      *  *      *         *     *|\n"
-//             "|                                              |*  *    *      *  *      *        *       |\n"
-//             "|                                              |*   *   *      *  *      *       *       *|\n"
-//             "|                                              |*    *    *****   ****** ******* ******  *|\n"
-//             "+----------------------------------------------+------------------------------------------+\n" );
-//    oss . str ("");
-//    oss . clear ();
-//    oss << t1;
-//    assert ( oss . str () ==
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|                                              |          ###                             |\n"
-//             "|                                              |          #  #                            |\n"
-//             "|                                              |          #  # # ##   ###    ###          |\n"
-//             "|                                              |          ###  ##    #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #     #   #  #  #          |\n"
-//             "|                                              |          #    #      ###    ###          |\n"
-//             "|                                              |                               #          |\n"
-//             "|                                              |                             ##           |\n"
-//             "|                                              |                                          |\n"
-//             "|                                              |           #    ###   ###   #             |\n"
-//             "|                                              |          ###  #   # #     ###            |\n"
-//             "|                                              |           #   #####  ###   #             |\n"
-//             "|                                              |           #   #         #  #             |\n"
-//             "|                                              |            ##  ###   ###    ##           |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
-//             "|consectetur adipiscing                        |                                          |\n"
-//             "|elit. Curabitur scelerisque                   |        ********                          |\n"
-//             "|lorem vitae lectus cursus,                    |       **********                         |\n"
-//             "|vitae porta ante placerat. Class aptent taciti|      **        **                        |\n"
-//             "|sociosqu ad litora                            |      **             **        **         |\n"
-//             "|torquent per                                  |      **             **        **         |\n"
-//             "|conubia nostra,                               |      ***         ********  ********      |\n"
-//             "|per inceptos himenaeos.                       |      ****        ********  ********      |\n"
-//             "|                                              |      ****           **        **         |\n"
-//             "|Donec tincidunt augue                         |      ****           **        **         |\n"
-//             "|sit amet metus                                |      ****      **                        |\n"
-//             "|pretium volutpat.                             |       **********                         |\n"
-//             "|Donec faucibus,                               |        ********                          |\n"
-//             "|ante sit amet                                 |                                          |\n"
-//             "|luctus posuere,                               |                                          |\n"
-//             "|mauris tellus                                 |                                          |\n"
-//             "+----------------------------------------------+------------------------------------------+\n"
-//             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
-//             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
-//             "|                                              |*    *  *      *  *      *           *   *|\n"
-//             "|                                              |*    *  *      *  *      *****      *    *|\n"
-//             "|                                              |****    *      *  *      *         *     *|\n"
-//             "|                                              |*  *    *      *  *      *        *       |\n"
-//             "|                                              |*   *   *      *  *      *       *       *|\n"
-//             "|                                              |*    *    *****   ****** ******* ******  *|\n"
-//             "+----------------------------------------------+------------------------------------------+\n" );
+//            . AddRow ( "  ##  ###   ###    ## " );
+//
+//    cout << image << endl;
+
+
+    ostringstream oss;
+    CTable t0 ( 3, 2 );
+    t0 . SetCell ( 0, 0, CText ( "Hello,\n"
+                                 "Hello Kitty", CText::ALIGN_LEFT ) );
+    t0 . SetCell ( 1, 0, CText ( "Lorem ipsum dolor sit amet", CText::ALIGN_LEFT ) );
+    t0 . SetCell ( 2, 0, CText ( "Bye,\n"
+                                 "Hello Kitty", CText::ALIGN_RIGHT ) );
+    t0 . SetCell ( 1, 1, CImage ()
+            . AddRow ( "###                   " )
+            . AddRow ( "#  #                  " )
+            . AddRow ( "#  # # ##   ###    ###" )
+            . AddRow ( "###  ##    #   #  #  #" )
+            . AddRow ( "#    #     #   #  #  #" )
+            . AddRow ( "#    #     #   #  #  #" )
+            . AddRow ( "#    #      ###    ###" )
+            . AddRow ( "                     #" )
+            . AddRow ( "                   ## " )
+            . AddRow ( "                      " )
+            . AddRow ( " #    ###   ###   #   " )
+            . AddRow ( "###  #   # #     ###  " )
+            . AddRow ( " #   #####  ###   #   " )
+            . AddRow ( " #   #         #  #   " )
+            . AddRow ( "  ##  ###   ###    ## " ) );
+    t0 . SetCell ( 2, 1, CEmpty () );
+    oss . str ("");
+    oss . clear ();
+    oss << t0;
+    assert ( oss . str () ==
+             "+--------------------------+----------------------+\n"
+             "|Hello,                    |                      |\n"
+             "|Hello Kitty               |                      |\n"
+             "+--------------------------+----------------------+\n"
+             "|Lorem ipsum dolor sit amet|###                   |\n"
+             "|                          |#  #                  |\n"
+             "|                          |#  # # ##   ###    ###|\n"
+             "|                          |###  ##    #   #  #  #|\n"
+             "|                          |#    #     #   #  #  #|\n"
+             "|                          |#    #     #   #  #  #|\n"
+             "|                          |#    #      ###    ###|\n"
+             "|                          |                     #|\n"
+             "|                          |                   ## |\n"
+             "|                          |                      |\n"
+             "|                          | #    ###   ###   #   |\n"
+             "|                          |###  #   # #     ###  |\n"
+             "|                          | #   #####  ###   #   |\n"
+             "|                          | #   #         #  #   |\n"
+             "|                          |  ##  ###   ###    ## |\n"
+             "+--------------------------+----------------------+\n"
+             "|                      Bye,|                      |\n"
+             "|               Hello Kitty|                      |\n"
+             "+--------------------------+----------------------+\n" );
+    t0 . SetCell ( 0, 1, t0 . GetCell ( 1, 1 ) );
+    t0 . SetCell ( 2, 1, CImage ()
+            . AddRow ( "*****   *      *  *      ******* ******  *" )
+            . AddRow ( "*    *  *      *  *      *            *  *" )
+            . AddRow ( "*    *  *      *  *      *           *   *" )
+            . AddRow ( "*    *  *      *  *      *****      *    *" )
+            . AddRow ( "****    *      *  *      *         *     *" )
+            . AddRow ( "*  *    *      *  *      *        *       " )
+            . AddRow ( "*   *   *      *  *      *       *       *" )
+            . AddRow ( "*    *    *****   ****** ******* ******  *" ) );
+    dynamic_cast<CText &> ( t0 . GetCell ( 1, 0 ) ) . SetText ( "Lorem ipsum dolor sit amet,\n"
+                                                                "consectetur adipiscing\n"
+                                                                "elit. Curabitur scelerisque\n"
+                                                                "lorem vitae lectus cursus,\n"
+                                                                "vitae porta ante placerat. Class aptent taciti\n"
+                                                                "sociosqu ad litora\n"
+                                                                "torquent per\n"
+                                                                "conubia nostra,\n"
+                                                                "per inceptos himenaeos.\n"
+                                                                "\n"
+                                                                "Donec tincidunt augue\n"
+                                                                "sit amet metus\n"
+                                                                "pretium volutpat.\n"
+                                                                "Donec faucibus,\n"
+                                                                "ante sit amet\n"
+                                                                "luctus posuere,\n"
+                                                                "mauris tellus" );
+    oss . str ("");
+    oss . clear ();
+    oss << t0;
+    assert ( oss . str () ==
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Hello,                                        |          ###                             |\n"
+             "|Hello Kitty                                   |          #  #                            |\n"
+             "|                                              |          #  # # ##   ###    ###          |\n"
+             "|                                              |          ###  ##    #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #      ###    ###          |\n"
+             "|                                              |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|                                              |                                          |\n"
+             "|                                              |           #    ###   ###   #             |\n"
+             "|                                              |          ###  #   # #     ###            |\n"
+             "|                                              |           #   #####  ###   #             |\n"
+             "|                                              |           #   #         #  #             |\n"
+             "|                                              |            ##  ###   ###    ##           |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
+             "|consectetur adipiscing                        |          ###                             |\n"
+             "|elit. Curabitur scelerisque                   |          #  #                            |\n"
+             "|lorem vitae lectus cursus,                    |          #  # # ##   ###    ###          |\n"
+             "|vitae porta ante placerat. Class aptent taciti|          ###  ##    #   #  #  #          |\n"
+             "|sociosqu ad litora                            |          #    #     #   #  #  #          |\n"
+             "|torquent per                                  |          #    #     #   #  #  #          |\n"
+             "|conubia nostra,                               |          #    #      ###    ###          |\n"
+             "|per inceptos himenaeos.                       |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|Donec tincidunt augue                         |                                          |\n"
+             "|sit amet metus                                |           #    ###   ###   #             |\n"
+             "|pretium volutpat.                             |          ###  #   # #     ###            |\n"
+             "|Donec faucibus,                               |           #   #####  ###   #             |\n"
+             "|ante sit amet                                 |           #   #         #  #             |\n"
+             "|luctus posuere,                               |            ##  ###   ###    ##           |\n"
+             "|mauris tellus                                 |                                          |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
+             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
+             "|                                              |*    *  *      *  *      *           *   *|\n"
+             "|                                              |*    *  *      *  *      *****      *    *|\n"
+             "|                                              |****    *      *  *      *         *     *|\n"
+             "|                                              |*  *    *      *  *      *        *       |\n"
+             "|                                              |*   *   *      *  *      *       *       *|\n"
+             "|                                              |*    *    *****   ****** ******* ******  *|\n"
+             "+----------------------------------------------+------------------------------------------+\n" );
+    CTable t1 ( t0 );
+    t1 . SetCell ( 1, 0, CEmpty () );
+    t1 . SetCell ( 1, 1, CEmpty () );
+    oss . str ("");
+    oss . clear ();
+    oss << t0;
+    cout << t0;
+    assert ( oss . str () ==
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Hello,                                        |          ###                             |\n"
+             "|Hello Kitty                                   |          #  #                            |\n"
+             "|                                              |          #  # # ##   ###    ###          |\n"
+             "|                                              |          ###  ##    #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #      ###    ###          |\n"
+             "|                                              |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|                                              |                                          |\n"
+             "|                                              |           #    ###   ###   #             |\n"
+             "|                                              |          ###  #   # #     ###            |\n"
+             "|                                              |           #   #####  ###   #             |\n"
+             "|                                              |           #   #         #  #             |\n"
+             "|                                              |            ##  ###   ###    ##           |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
+             "|consectetur adipiscing                        |          ###                             |\n"
+             "|elit. Curabitur scelerisque                   |          #  #                            |\n"
+             "|lorem vitae lectus cursus,                    |          #  # # ##   ###    ###          |\n"
+             "|vitae porta ante placerat. Class aptent taciti|          ###  ##    #   #  #  #          |\n"
+             "|sociosqu ad litora                            |          #    #     #   #  #  #          |\n"
+             "|torquent per                                  |          #    #     #   #  #  #          |\n"
+             "|conubia nostra,                               |          #    #      ###    ###          |\n"
+             "|per inceptos himenaeos.                       |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|Donec tincidunt augue                         |                                          |\n"
+             "|sit amet metus                                |           #    ###   ###   #             |\n"
+             "|pretium volutpat.                             |          ###  #   # #     ###            |\n"
+             "|Donec faucibus,                               |           #   #####  ###   #             |\n"
+             "|ante sit amet                                 |           #   #         #  #             |\n"
+             "|luctus posuere,                               |            ##  ###   ###    ##           |\n"
+             "|mauris tellus                                 |                                          |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
+             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
+             "|                                              |*    *  *      *  *      *           *   *|\n"
+             "|                                              |*    *  *      *  *      *****      *    *|\n"
+             "|                                              |****    *      *  *      *         *     *|\n"
+             "|                                              |*  *    *      *  *      *        *       |\n"
+             "|                                              |*   *   *      *  *      *       *       *|\n"
+             "|                                              |*    *    *****   ****** ******* ******  *|\n"
+             "+----------------------------------------------+------------------------------------------+\n" );
+    oss . str ("");
+    oss . clear ();
+    oss << t1;
+    assert ( oss . str () ==
+             "+-----------+------------------------------------------+\n"
+             "|Hello,     |          ###                             |\n"
+             "|Hello Kitty|          #  #                            |\n"
+             "|           |          #  # # ##   ###    ###          |\n"
+             "|           |          ###  ##    #   #  #  #          |\n"
+             "|           |          #    #     #   #  #  #          |\n"
+             "|           |          #    #     #   #  #  #          |\n"
+             "|           |          #    #      ###    ###          |\n"
+             "|           |                               #          |\n"
+             "|           |                             ##           |\n"
+             "|           |                                          |\n"
+             "|           |           #    ###   ###   #             |\n"
+             "|           |          ###  #   # #     ###            |\n"
+             "|           |           #   #####  ###   #             |\n"
+             "|           |           #   #         #  #             |\n"
+             "|           |            ##  ###   ###    ##           |\n"
+             "+-----------+------------------------------------------+\n"
+             "+-----------+------------------------------------------+\n"
+             "|       Bye,|*****   *      *  *      ******* ******  *|\n"
+             "|Hello Kitty|*    *  *      *  *      *            *  *|\n"
+             "|           |*    *  *      *  *      *           *   *|\n"
+             "|           |*    *  *      *  *      *****      *    *|\n"
+             "|           |****    *      *  *      *         *     *|\n"
+             "|           |*  *    *      *  *      *        *       |\n"
+             "|           |*   *   *      *  *      *       *       *|\n"
+             "|           |*    *    *****   ****** ******* ******  *|\n"
+             "+-----------+------------------------------------------+\n" );
+    t1 = t0;
+    t1 . SetCell ( 0, 0, CEmpty () );
+    t1 . SetCell ( 1, 1, CImage ()
+            . AddRow ( "  ********                    " )
+            . AddRow ( " **********                   " )
+            . AddRow ( "**        **                  " )
+            . AddRow ( "**             **        **   " )
+            . AddRow ( "**             **        **   " )
+            . AddRow ( "***         ********  ********" )
+            . AddRow ( "****        ********  ********" )
+            . AddRow ( "****           **        **   " )
+            . AddRow ( "****           **        **   " )
+            . AddRow ( "****      **                  " )
+            . AddRow ( " **********                   " )
+            . AddRow ( "  ********                    " ) );
+    oss . str ("");
+    oss . clear ();
+    oss << t0;
+    assert ( oss . str () ==
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Hello,                                        |          ###                             |\n"
+             "|Hello Kitty                                   |          #  #                            |\n"
+             "|                                              |          #  # # ##   ###    ###          |\n"
+             "|                                              |          ###  ##    #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #      ###    ###          |\n"
+             "|                                              |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|                                              |                                          |\n"
+             "|                                              |           #    ###   ###   #             |\n"
+             "|                                              |          ###  #   # #     ###            |\n"
+             "|                                              |           #   #####  ###   #             |\n"
+             "|                                              |           #   #         #  #             |\n"
+             "|                                              |            ##  ###   ###    ##           |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
+             "|consectetur adipiscing                        |          ###                             |\n"
+             "|elit. Curabitur scelerisque                   |          #  #                            |\n"
+             "|lorem vitae lectus cursus,                    |          #  # # ##   ###    ###          |\n"
+             "|vitae porta ante placerat. Class aptent taciti|          ###  ##    #   #  #  #          |\n"
+             "|sociosqu ad litora                            |          #    #     #   #  #  #          |\n"
+             "|torquent per                                  |          #    #     #   #  #  #          |\n"
+             "|conubia nostra,                               |          #    #      ###    ###          |\n"
+             "|per inceptos himenaeos.                       |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|Donec tincidunt augue                         |                                          |\n"
+             "|sit amet metus                                |           #    ###   ###   #             |\n"
+             "|pretium volutpat.                             |          ###  #   # #     ###            |\n"
+             "|Donec faucibus,                               |           #   #####  ###   #             |\n"
+             "|ante sit amet                                 |           #   #         #  #             |\n"
+             "|luctus posuere,                               |            ##  ###   ###    ##           |\n"
+             "|mauris tellus                                 |                                          |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
+             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
+             "|                                              |*    *  *      *  *      *           *   *|\n"
+             "|                                              |*    *  *      *  *      *****      *    *|\n"
+             "|                                              |****    *      *  *      *         *     *|\n"
+             "|                                              |*  *    *      *  *      *        *       |\n"
+             "|                                              |*   *   *      *  *      *       *       *|\n"
+             "|                                              |*    *    *****   ****** ******* ******  *|\n"
+             "+----------------------------------------------+------------------------------------------+\n" );
+    oss . str ("");
+    oss . clear ();
+    oss << t1;
+    assert ( oss . str () ==
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|                                              |          ###                             |\n"
+             "|                                              |          #  #                            |\n"
+             "|                                              |          #  # # ##   ###    ###          |\n"
+             "|                                              |          ###  ##    #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #     #   #  #  #          |\n"
+             "|                                              |          #    #      ###    ###          |\n"
+             "|                                              |                               #          |\n"
+             "|                                              |                             ##           |\n"
+             "|                                              |                                          |\n"
+             "|                                              |           #    ###   ###   #             |\n"
+             "|                                              |          ###  #   # #     ###            |\n"
+             "|                                              |           #   #####  ###   #             |\n"
+             "|                                              |           #   #         #  #             |\n"
+             "|                                              |            ##  ###   ###    ##           |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|Lorem ipsum dolor sit amet,                   |                                          |\n"
+             "|consectetur adipiscing                        |                                          |\n"
+             "|elit. Curabitur scelerisque                   |        ********                          |\n"
+             "|lorem vitae lectus cursus,                    |       **********                         |\n"
+             "|vitae porta ante placerat. Class aptent taciti|      **        **                        |\n"
+             "|sociosqu ad litora                            |      **             **        **         |\n"
+             "|torquent per                                  |      **             **        **         |\n"
+             "|conubia nostra,                               |      ***         ********  ********      |\n"
+             "|per inceptos himenaeos.                       |      ****        ********  ********      |\n"
+             "|                                              |      ****           **        **         |\n"
+             "|Donec tincidunt augue                         |      ****           **        **         |\n"
+             "|sit amet metus                                |      ****      **                        |\n"
+             "|pretium volutpat.                             |       **********                         |\n"
+             "|Donec faucibus,                               |        ********                          |\n"
+             "|ante sit amet                                 |                                          |\n"
+             "|luctus posuere,                               |                                          |\n"
+             "|mauris tellus                                 |                                          |\n"
+             "+----------------------------------------------+------------------------------------------+\n"
+             "|                                          Bye,|*****   *      *  *      ******* ******  *|\n"
+             "|                                   Hello Kitty|*    *  *      *  *      *            *  *|\n"
+             "|                                              |*    *  *      *  *      *           *   *|\n"
+             "|                                              |*    *  *      *  *      *****      *    *|\n"
+             "|                                              |****    *      *  *      *         *     *|\n"
+             "|                                              |*  *    *      *  *      *        *       |\n"
+             "|                                              |*   *   *      *  *      *       *       *|\n"
+             "|                                              |*    *    *****   ****** ******* ******  *|\n"
+             "+----------------------------------------------+------------------------------------------+\n" );
 
     return 0;
 }

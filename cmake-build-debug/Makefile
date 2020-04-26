@@ -150,6 +150,33 @@ CTable.cpp.s:
 	$(MAKE) -f CMakeFiles/domaci_uloha_6.dir/build.make CMakeFiles/domaci_uloha_6.dir/CTable.cpp.s
 .PHONY : CTable.cpp.s
 
+CTable1.o: CTable1.cpp.o
+
+.PHONY : CTable1.o
+
+# target to build an object file
+CTable1.cpp.o:
+	$(MAKE) -f CMakeFiles/domaci_uloha_6.dir/build.make CMakeFiles/domaci_uloha_6.dir/CTable1.cpp.o
+.PHONY : CTable1.cpp.o
+
+CTable1.i: CTable1.cpp.i
+
+.PHONY : CTable1.i
+
+# target to preprocess a source file
+CTable1.cpp.i:
+	$(MAKE) -f CMakeFiles/domaci_uloha_6.dir/build.make CMakeFiles/domaci_uloha_6.dir/CTable1.cpp.i
+.PHONY : CTable1.cpp.i
+
+CTable1.s: CTable1.cpp.s
+
+.PHONY : CTable1.s
+
+# target to generate assembly for a file
+CTable1.cpp.s:
+	$(MAKE) -f CMakeFiles/domaci_uloha_6.dir/build.make CMakeFiles/domaci_uloha_6.dir/CTable1.cpp.s
+.PHONY : CTable1.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -189,6 +216,9 @@ help:
 	@echo "... CTable.o"
 	@echo "... CTable.i"
 	@echo "... CTable.s"
+	@echo "... CTable1.o"
+	@echo "... CTable1.i"
+	@echo "... CTable1.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

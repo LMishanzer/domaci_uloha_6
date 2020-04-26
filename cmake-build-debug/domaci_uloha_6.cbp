@@ -85,6 +85,9 @@
 		<Unit filename="/home/mike/PA2/domaci_uloha_6/CTable.cpp">
 			<Option target="domaci_uloha_6"/>
 		</Unit>
+		<Unit filename="/home/mike/PA2/domaci_uloha_6/CTable1.cpp">
+			<Option target="domaci_uloha_6"/>
+		</Unit>
 		<Unit filename="/home/mike/PA2/domaci_uloha_6/main.cpp">
 			<Option target="domaci_uloha_6"/>
 		</Unit>

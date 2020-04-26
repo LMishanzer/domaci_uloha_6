@@ -157,7 +157,7 @@ public:
     }
 
     CImage(const CImage &image)
-            : CElement(image) {
+     : CElement(image) {
         m_Lines = image.m_Lines;
         m_Columns = image.m_Columns;
         m_Image.clear();
@@ -225,8 +225,8 @@ public:
     }
 
     CTable(const CTable &table)
-            : CElement(table)
-    {
+     : CElement(table)
+     {
         m_Rows = table.m_Rows;
         m_Cols = table.m_Cols;
         m_Table = new CElement**[m_Rows];
@@ -391,9 +391,9 @@ private:
             for (int j = 0; j < m_Cols; j++)
             {
                 oss << '|' << setw(widths[j])
-                    << (typeid(*m_Table[index][j]) == typeid(CText) ?
-                        dynamic_cast<CText *>(m_Table[index][j])->m_Align == CText::ALIGN_LEFT ? left : right : left)
-                    << m_Table[index][j]->GetLine(i, height, widths[j]);
+                << (typeid(*m_Table[index][j]) == typeid(CText) ?
+                dynamic_cast<CText *>(m_Table[index][j])->m_Align == CText::ALIGN_LEFT ? left : right : left)
+                << m_Table[index][j]->GetLine(i, height, widths[j]);
             }
             oss << '|' << endl;
         }

@@ -3,4 +3,4 @@ project(domaci_uloha_6)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(domaci_uloha_6 main.cpp CTable.cpp)
+add_executable(domaci_uloha_6 main.cpp CTable.cpp CTable1.cpp)
